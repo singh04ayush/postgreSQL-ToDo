@@ -1,0 +1,55 @@
+.title-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 2px solid var(--primary-color);
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: 
+    typing 3.5s steps(11, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--primary-color) }
+}
+
+/* Sketch-like background structure */
+.title-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bstroke:%236c5ce7;stroke-width:2px;stroke-dasharray:10 5;fill:none;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M50,200 C150,100 250,300 350,200 S550,100 650,200 S850,300 950,200' /%3E%3Cpath class='cls-1' d='M0,150 C100,50 200,250 300,150 S500,50 600,150 S800,250 900,150' stroke-dashoffset='10' /%3E%3C/svg%3E");
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Mascot styling removed */
+
+/* Road-like structure at the bottom */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 120'%3E%3Cpath fill='%236c5ce7' fill-opacity='0.1' d='M0,0 L1200,0 L1200,20 L0,20 Z'%3E%3C/path%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-dasharray='10,10' d='M0,60 L1200,60' /%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  z-index: -2;
+  opacity: 0.5;
+}
