@@ -19,6 +19,11 @@ app.use(express.json());
 
 //Routes
 
+// Root route to show API is working
+app.get("/", (req, res) => {
+  res.json({ message: "Todo API is up and running!" });
+});
+
 // 1. Create a Todo
 app.post("/todos", async (req, res) => {
     try {
@@ -86,4 +91,5 @@ app.delete("/todos/:id", async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`API is up and running! Visit http://localhost:${PORT} to see the welcome message.`);
 })
