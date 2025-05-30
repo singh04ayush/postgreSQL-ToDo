@@ -1,1 +1,93 @@
-# postgreSQL-ToDo
+# PostgreSQL Todo App (PERN Stack)
+
+A full-stack todo application built with PostgreSQL, Express, React, and Node.js.
+
+## Deployment Instructions for Vercel
+
+### Backend Deployment
+
+1. Create a PostgreSQL database on a service like Supabase, Neon, or any other PostgreSQL provider.
+
+2. Update the `.env` file in the server directory with your production database URL:
+   ```
+   DATABASE_URL=your_production_database_url
+   NODE_ENV=production
+   ```
+
+3. Deploy the server to Vercel:
+   ```bash
+   cd server
+   npm install -g vercel
+   vercel login
+   vercel
+   ```
+
+4. During deployment, Vercel will ask you to set environment variables. Make sure to set:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `NODE_ENV`: Set to "production"
+
+5. After deployment, Vercel will provide you with a URL for your backend API (e.g., `https://your-app-name.vercel.app`).
+
+### Frontend Deployment
+
+1. Update the `.env.production` file in the client directory with your backend URL:
+   ```
+   VITE_API_URL=https://your-backend-url.vercel.app
+   ```
+
+2. Deploy the client to Vercel:
+   ```bash
+   cd client
+   vercel
+   ```
+
+3. Your frontend application will now be deployed and connected to your backend API.
+
+## Local Development
+
+### Server Setup
+
+1. Navigate to the server directory:
+   ```bash
+   cd server
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file with your local database configuration.
+
+4. Start the server:
+   ```bash
+   npm run server
+   ```
+
+### Client Setup
+
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Database Schema
+
+The application uses a simple PostgreSQL table:
+
+```sql
+CREATE TABLE todo (
+  todo_id SERIAL PRIMARY KEY,
+  description VARCHAR(255)
+);
+```

@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import EditTodos from './EditTodos';
 import './TodoList.css';
+import { API_URL } from '../config/api';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
 
   const deleteTodo = async id => {
     try {
-      await fetch(`http://localhost:4000/todos/${id}`, {
+      await fetch(`${API_URL}/todos/${id}`, {
         method: "DELETE"
       });
       setTodos(todos.filter(todo => todo.todo_id !== id));
@@ -18,7 +19,7 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:4000/todos");
+      const response = await fetch(`${API_URL}/todos`);
       const jsonData = await response.json();
       setTodos(jsonData);
     } catch (error) {

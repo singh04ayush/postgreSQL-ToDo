@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import './InputTodos.css';
+import { API_URL } from '../config/api';
 
 const InputTodos = () => {
   const [description, setDescription] = useState("");
@@ -8,7 +9,7 @@ const InputTodos = () => {
     try {
       e.preventDefault();
       const body = { description };
-      await fetch("http://localhost:4000/todos", {
+      await fetch(`${API_URL}/todos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)

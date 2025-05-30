@@ -2,10 +2,19 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require('./db');
+require('dotenv').config();
+
+// Environment variables
+const PORT = process.env.PORT || 4000;
 
 //middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow requests from everywhere
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  credentials: true
+}));
 app.use(express.json());
+
 
 
 //Routes
@@ -28,7 +37,7 @@ app.get('/todos', async (req, res) => {
         const allTodos = await pool.query("SELECT * from todo");
         res.json(allTodos.rows);
     } catch (error) {
-        console.log(error.messsage);
+        console.log(error.message);
     }
 })
 
@@ -75,6 +84,6 @@ app.delete("/todos/:id", async (req, res) => {
 
 
 
-app.listen(4000, () => {
-    console.log('Server running on 4000');
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 })

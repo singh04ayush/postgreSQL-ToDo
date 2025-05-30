@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import './EditTodos.css';
+import { API_URL } from '../config/api';
 
 const EditTodos = ({ todo, onUpdate }) => {
   const [description, setDescription] = useState(todo.description);
@@ -14,7 +15,7 @@ const EditTodos = ({ todo, onUpdate }) => {
     e.preventDefault();
     try {
       const body = { description };
-      const response = await fetch(`http://localhost:4000/todos/${todo.todo_id}`, {
+      const response = await fetch(`${API_URL}/todos/${todo.todo_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
