@@ -1,0 +1,94 @@
+.todo-list-container {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px var(--shadow);
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.todo-list-header {
+  display: flex;
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+  color: var(--light-text);
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.header-description {
+  flex: 1;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  width: 160px;
+}
+
+.header-edit, .header-delete {
+  width: 80px;
+  text-align: center;
+}
+
+.todo-items-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-item {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  align-items: center;
+  position: relative;
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -35%;
+  width: 3px;
+  height: 70%;
+  background: var(--primary-color);
+}
+
+.todo-description {
+  flex: 1;
+  padding-left: 1rem;
+  text-align: left;
+}
+
+.todo-actions {
+  display: flex;
+  width: 160px;
+}
+
+.todo-edit, .todo-delete {
+  width: 80px;
+  text-align: center;
+}
+
+.empty-state-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .header-actions, .todo-actions {
+    width: 120px;
+  }
+  
+  .header-edit, .header-delete, .todo-edit, .todo-delete {
+    width: 60px;
+  }
+}
