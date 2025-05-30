@@ -1,20 +1,23 @@
-# PostgreSQL Todo App (PERN Stack)
 
-A full-stack todo application built with PostgreSQL, Express, React, and Node.js.
+<h1 align="center">PostgreSQL Todo App (PERN Stack)</h1>
 
-## Deployment Instructions for Vercel
+A full-stack todo application built with **PostgreSQL**, **Express**, **React**, and **Node.js**.
 
-### Backend Deployment
+---
 
-1. Create a PostgreSQL database on a service like Supabase, Neon, or any other PostgreSQL provider.
+## 🚀 Deployment Instructions for Vercel
 
-2. Update the `.env` file in the server directory with your production database URL:
-   ```
+### 🔧 Backend Deployment
+
+1. Create a PostgreSQL database using a service like **Supabase**, **Neon**, or any other PostgreSQL provider.
+
+2. Update the `.env` file in the `server` directory:
+   ```env
    DATABASE_URL=your_production_database_url
    NODE_ENV=production
    ```
 
-3. Deploy the server to Vercel:
+3. Deploy the server to **Vercel**:
    ```bash
    cd server
    npm install -g vercel
@@ -22,16 +25,18 @@ A full-stack todo application built with PostgreSQL, Express, React, and Node.js
    vercel
    ```
 
-4. During deployment, Vercel will ask you to set environment variables. Make sure to set:
+4. When prompted during deployment, set the following environment variables:
    - `DATABASE_URL`: Your PostgreSQL connection string
-   - `NODE_ENV`: Set to "production"
+   - `NODE_ENV`: `production`
 
-5. After deployment, Vercel will provide you with a URL for your backend API (e.g., `https://your-app-name.vercel.app`).
+5. After deployment, Vercel will provide a URL for your backend API (e.g., `https://your-app-name.vercel.app`).
 
-### Frontend Deployment
+---
 
-1. Update the `.env.production` file in the client directory with your backend URL:
-   ```
+### 🎨 Frontend Deployment
+
+1. Update the `.env.production` file in the `client` directory:
+   ```env
    VITE_API_URL=https://your-backend-url.vercel.app
    ```
 
@@ -43,9 +48,11 @@ A full-stack todo application built with PostgreSQL, Express, React, and Node.js
 
 3. Your frontend application will now be deployed and connected to your backend API.
 
-## Local Development
+---
 
-### Server Setup
+## 💻 Local Development
+
+### 🖥 Server Setup
 
 1. Navigate to the server directory:
    ```bash
@@ -64,7 +71,9 @@ A full-stack todo application built with PostgreSQL, Express, React, and Node.js
    npm run server
    ```
 
-### Client Setup
+---
+
+### 🖼 Client Setup
 
 1. Navigate to the client directory:
    ```bash
@@ -81,9 +90,9 @@ A full-stack todo application built with PostgreSQL, Express, React, and Node.js
    npm run dev
    ```
 
-## Database Schema
+---
 
-The application uses a simple PostgreSQL table:
+## 🗃 Database Schema
 
 ```sql
 CREATE TABLE todo (
@@ -91,3 +100,5 @@ CREATE TABLE todo (
   description VARCHAR(255)
 );
 ```
+
+---
