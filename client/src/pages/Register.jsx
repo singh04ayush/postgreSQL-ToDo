@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_ENDPOINTS } from '../config/api';
+import { showSuccessToast, showErrorToast, showInfoToast } from '../utils/toast';
 import '../styles/Login.css';
 
 const Register = ({ setAuth }) => {
@@ -21,6 +22,7 @@ const Register = ({ setAuth }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
+      showInfoToast("Creating your account...");
       const response = await axios.post(AUTH_ENDPOINTS.REGISTER, {
         email,
         password
@@ -32,11 +34,16 @@ const Register = ({ setAuth }) => {
       // Set auth to true
       setAuth(true);
       
+      // Show success toast
+      showSuccessToast("Registration successful!");
+      
       // Redirect to dashboard
       navigate('/');
     } catch (err) {
-      console.error(err.response.data);
-      setError(err.response.data.msg);
+      console.error(err.response?.data || err.message);
+      const errorMessage = err.response?.data?.msg || "Registration failed. Please try again.";
+      setError(errorMessage);
+      showErrorToast(errorMessage);
     }
   };
 

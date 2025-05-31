@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_ENDPOINTS } from '../config/api';
+import { showSuccessToast, showErrorToast, showInfoToast } from '../utils/toast';
 import '../styles/Login.css';
 
 const Login = ({ setAuth }) => {
@@ -21,6 +22,7 @@ const Login = ({ setAuth }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
+      showInfoToast("Logging in...");
       const response = await axios.post(AUTH_ENDPOINTS.LOGIN, {
         email,
         password
@@ -32,11 +34,16 @@ const Login = ({ setAuth }) => {
       // Set auth to true
       setAuth(true);
       
+      // Show success toast
+      showSuccessToast("Login successful!");
+      
       // Redirect to dashboard
       navigate('/');
     } catch (err) {
-      console.error(err.response.data);
-      setError(err.response.data.msg);
+      console.error(err.response?.data || err.message);
+      const errorMessage = err.response?.data?.msg || "Login failed. Please try again.";
+      setError(errorMessage);
+      showErrorToast(errorMessage);
     }
   };
 

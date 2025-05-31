@@ -10,7 +10,7 @@ import './Dashboard.css';
 const Dashboard = () => {
   const [todos, setTodos] = useState([]);
   const [user, setUser] = useState(null);
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const getTodos = async () => {
@@ -37,11 +37,7 @@ const Dashboard = () => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setAuth(false);
-    navigate('/login');
-  };
+  // Using logout from AuthContext instead of local implementation
 
   useEffect(() => {
     getTodos();

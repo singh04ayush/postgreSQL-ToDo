@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
 import { TODO_ENDPOINTS } from '../config/api';
+import { showSuccessToast, showErrorToast, showInfoToast } from '../utils/toast';
 import './EditTodos.css';
 
 const EditTodos = ({ todo, setTodosChange }) => {
@@ -15,6 +16,7 @@ const EditTodos = ({ todo, setTodosChange }) => {
   const updateDescription = async (e) => {
     e.preventDefault();
     try {
+      showInfoToast("Updating task...");
       const token = localStorage.getItem('token');
       await axios.put(TODO_ENDPOINTS.UPDATE(todo.todo_id), {
         description
@@ -24,8 +26,10 @@ const EditTodos = ({ todo, setTodosChange }) => {
       
       setShowModal(false);
       setTodosChange();
+      showSuccessToast("Task updated successfully!");
     } catch (err) {
       console.error(err.message);
+      showErrorToast("Failed to update task. Please try again.");
     }
   };
 

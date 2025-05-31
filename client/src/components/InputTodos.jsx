@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
 import { TODO_ENDPOINTS } from '../config/api';
+import { showSuccessToast, showErrorToast } from '../utils/toast';
 import './InputTodos.css';
 
 const InputTodos = ({ setTodosChange }) => {
@@ -16,10 +17,12 @@ const InputTodos = ({ setTodosChange }) => {
         headers: { token }
       });
       
+      showSuccessToast("Task added successfully!");
       setDescription(""); // Clear input after submission
       setTodosChange(); // Refresh the todo list
     } catch (error) {
       console.error(error.message);
+      showErrorToast("Failed to add task. Please try again.");
     }
   };
 

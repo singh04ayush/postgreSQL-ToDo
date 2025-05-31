@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import { TODO_ENDPOINTS } from '../config/api';
+import { showSuccessToast, showErrorToast, showInfoToast } from '../utils/toast';
 import EditTodos from './EditTodos';
 import './ListTodos.css';
 
@@ -17,6 +18,7 @@ const ListTodos = ({ todos, setTodosChange }) => {
         setAllTodos(response.data);
       } catch (err) {
         console.error(err.message);
+        showErrorToast("Failed to load tasks. Please refresh the page.");
       }
     };
 
@@ -25,13 +27,16 @@ const ListTodos = ({ todos, setTodosChange }) => {
 
   const deleteTodo = async (id) => {
     try {
+      showInfoToast("Deleting task...");
       const token = localStorage.getItem('token');
       await axios.delete(TODO_ENDPOINTS.DELETE(id), {
         headers: { token }
       });
       setAllTodos(allTodos.filter(todo => todo.todo_id !== id));
+      showSuccessToast("Task deleted successfully!");
     } catch (err) {
       console.error(err.message);
+      showErrorToast("Failed to delete task. Please try again.");
     }
   };
 
