@@ -1,21 +1,23 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import axios from 'axios';
+import { TODO_ENDPOINTS } from '../config/api';
 import './InputTodos.css';
-import { API_URL } from '../config/api';
 
-const InputTodos = () => {
+const InputTodos = ({ setTodosChange }) => {
   const [description, setDescription] = useState("");
 
   const onSubmitForm = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      const body = { description };
-      await fetch(`${API_URL}/todos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+      const token = localStorage.getItem('token');
+      await axios.post(TODO_ENDPOINTS.CREATE, {
+        description
+      }, {
+        headers: { token }
       });
+      
       setDescription(""); // Clear input after submission
-      window.location = '/';
+      setTodosChange(); // Refresh the todo list
     } catch (error) {
       console.error(error.message);
     }

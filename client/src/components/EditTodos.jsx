@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import axios from 'axios';
+import { TODO_ENDPOINTS } from '../config/api';
 import './EditTodos.css';
-import { API_URL } from '../config/api';
 
-const EditTodos = ({ todo, onUpdate }) => {
+const EditTodos = ({ todo, setTodosChange }) => {
   const [description, setDescription] = useState(todo.description);
   const [showModal, setShowModal] = useState(false);
 
@@ -14,17 +15,15 @@ const EditTodos = ({ todo, onUpdate }) => {
   const updateDescription = async (e) => {
     e.preventDefault();
     try {
-      const body = { description };
-      const response = await fetch(`${API_URL}/todos/${todo.todo_id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+      const token = localStorage.getItem('token');
+      await axios.put(TODO_ENDPOINTS.UPDATE(todo.todo_id), {
+        description
+      }, {
+        headers: { token }
       });
-
-      if (response.ok) {
-        setShowModal(false);
-        if (onUpdate) onUpdate();
-      }
+      
+      setShowModal(false);
+      setTodosChange();
     } catch (err) {
       console.error(err.message);
     }
@@ -50,7 +49,7 @@ const EditTodos = ({ todo, onUpdate }) => {
         className="icon-btn edit"
         title="Edit task"
       >
-        <i className="fas fa-edit"></i>
+        <img src="/assets/icons8-edit.svg" alt="Edit" width="16" height="16" />
       </button>
 
       {showModal && (

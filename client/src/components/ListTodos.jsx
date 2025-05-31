@@ -1,35 +1,39 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import axios from 'axios';
+import { TODO_ENDPOINTS } from '../config/api';
 import EditTodos from './EditTodos';
-import './TodoList.css';
-import { API_URL } from '../config/api';
+import './ListTodos.css';
 
-const ListTodos = () => {
-  const [todos, setTodos] = useState([]);
-
-  const deleteTodo = async id => {
-    try {
-      await fetch(`${API_URL}/todos/${id}`, {
-        method: "DELETE"
-      });
-      setTodos(todos.filter(todo => todo.todo_id !== id));
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  const getTodos = async () => {
-    try {
-      const response = await fetch(`${API_URL}/todos`);
-      const jsonData = await response.json();
-      setTodos(jsonData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+const ListTodos = ({ todos, setTodosChange }) => {
+  const [allTodos, setAllTodos] = useState([]);
 
   useEffect(() => {
-    getTodos();
-  }, []);
+    const fetchTodos = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(TODO_ENDPOINTS.GET_ALL, {
+          headers: { token }
+        });
+        setAllTodos(response.data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    fetchTodos();
+  }, [setTodosChange]);
+
+  const deleteTodo = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(TODO_ENDPOINTS.DELETE(id), {
+        headers: { token }
+      });
+      setAllTodos(allTodos.filter(todo => todo.todo_id !== id));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
 
   return (
@@ -43,7 +47,7 @@ const ListTodos = () => {
           </div>
         </div>
 
-        {todos.length === 0 ? (
+        {allTodos.length === 0 ? (
           <div className="empty-state-container">
             <div className="empty-state">
               <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,12 +63,12 @@ const ListTodos = () => {
           </div>
         ) : (
           <div className="todo-items-container">
-            {todos.map(todo => (
+            {allTodos.map(todo => (
               <div key={todo.todo_id} className="todo-item">
                 <div className="todo-description">{todo.description}</div>
                 <div className="todo-actions">
                   <div className="todo-edit">
-                    <EditTodos todo={todo} onUpdate={getTodos}/>
+                    <EditTodos todo={todo} setTodosChange={setTodosChange}/>
                   </div>
                   <div className="todo-delete">
                     <button 
@@ -72,7 +76,10 @@ const ListTodos = () => {
                       className="icon-btn delete"
                       title="Delete task"
                     >
-                      <i className="fas fa-trash-alt"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
                     </button>
                   </div>
                 </div>

@@ -1,0 +1,37 @@
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Removed header title and welcome text */
+
+.logout-btn {
+  background-color: #fff;
+  color: #6c5ce7;
+  border: 1px solid #6c5ce7;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #6c5ce7;
+  color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .logout-btn {
+    align-self: flex-end;
+  }
+}
