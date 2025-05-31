@@ -5,12 +5,12 @@ const auth = require("../middleware/auth");
 // Create a todo (with authentication)
 router.post("/", auth, async (req, res) => {
   try {
-    const { description } = req.body;
+    const { description, deadline_date, deadline_time, repeat_frequency } = req.body;
     const userId = req.user.id;
     
     const newTodo = await pool.query(
-      "INSERT INTO todo (user_id, description) VALUES($1, $2) RETURNING *", 
-      [userId, description]
+      "INSERT INTO todo (user_id, description, deadline_date, deadline_time, repeat_frequency) VALUES($1, $2, $3, $4, $5) RETURNING *", 
+      [userId, description, deadline_date || null, deadline_time || null, repeat_frequency || 'none']
     );
     
     res.json(newTodo.rows[0]);
@@ -63,7 +63,7 @@ router.get("/:id", auth, async (req, res) => {
 router.put("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { description } = req.body;
+    const { description, deadline_date, deadline_time, repeat_frequency } = req.body;
     const userId = req.user.id;
     
     // Check if todo exists and belongs to user
@@ -78,8 +78,8 @@ router.put("/:id", auth, async (req, res) => {
     
     // Update todo
     await pool.query(
-      "UPDATE todo SET description = $1 WHERE todo_id = $2 AND user_id = $3", 
-      [description, id, userId]
+      "UPDATE todo SET description = $1, deadline_date = $2, deadline_time = $3, repeat_frequency = $4 WHERE todo_id = $5 AND user_id = $6", 
+      [description, deadline_date, deadline_time, repeat_frequency || 'none', id, userId]
     );
     
     res.json({ msg: "Todo updated successfully" });

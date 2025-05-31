@@ -14,7 +14,17 @@
 }
 
 .header-description {
+  flex: 2;
+}
+
+.header-deadline {
   flex: 1;
+  text-align: center;
+}
+
+.header-repeat {
+  flex: 1;
+  text-align: center;
 }
 
 .header-actions {
@@ -44,8 +54,34 @@
 }
 
 .todo-description {
-  flex: 1;
+  flex: 2;
   word-break: break-word;
+}
+
+.todo-deadline {
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.todo-repeat {
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.deadline {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+.deadline-time {
+  font-weight: 500;
 }
 
 .todo-actions {
@@ -97,12 +133,53 @@
 }
 
 /* Responsive styles */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .header-edit, .header-delete, .todo-edit, .todo-delete {
     width: 40px;
   }
   
   .todo-item {
     padding: 12px 15px;
+  }
+
+  .todo-description {
+    flex: 1.5;
+  }
+
+  .todo-deadline, .todo-repeat {
+    font-size: 0.8rem;
+  }
+
+  .deadline {
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .todo-item {
+    flex-wrap: wrap;
+  }
+
+  .todo-description {
+    flex: 100%;
+    margin-bottom: 8px;
+  }
+
+  .todo-deadline, .todo-repeat {
+    flex: 1;
+  }
+
+  .todo-actions {
+    flex: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  .header-description {
+    flex: 1;
+  }
+
+  .header-deadline, .header-repeat {
+    display: none;
   }
 }

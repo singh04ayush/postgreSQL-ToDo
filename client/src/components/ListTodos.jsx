@@ -41,11 +41,26 @@ const ListTodos = ({ todos, setTodosChange }) => {
   };
 
 
+  // Helper function to format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
+  // Helper function to format repeat frequency for display
+  const formatRepeatFrequency = (frequency) => {
+    if (!frequency || frequency === "none") return "";
+    return frequency.charAt(0).toUpperCase() + frequency.slice(1);
+  };
+
   return (
     <Fragment>
       <div className="todo-list-container mt-5">
         <div className="todo-list-header">
           <div className="header-description">Description</div>
+          <div className="header-deadline">Deadline</div>
+          <div className="header-repeat">Repeat</div>
           <div className="header-actions">
             <div className="header-edit">Edit</div>
             <div className="header-delete">Delete</div>
@@ -71,6 +86,19 @@ const ListTodos = ({ todos, setTodosChange }) => {
             {allTodos.map(todo => (
               <div key={todo.todo_id} className="todo-item">
                 <div className="todo-description">{todo.description}</div>
+                <div className="todo-deadline">
+                  {todo.deadline_date && (
+                    <span className="deadline">
+                      {formatDate(todo.deadline_date)}
+                      {todo.deadline_time && (
+                        <span className="deadline-time"> {todo.deadline_time.substring(0, 5)}</span>
+                      )}
+                    </span>
+                  )}
+                </div>
+                <div className="todo-repeat">
+                  {formatRepeatFrequency(todo.repeat_frequency)}
+                </div>
                 <div className="todo-actions">
                   <div className="todo-edit">
                     <EditTodos todo={todo} setTodosChange={setTodosChange}/>
