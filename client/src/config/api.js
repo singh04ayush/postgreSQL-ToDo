@@ -1,6 +1,6 @@
 // API configuration
-// Use local server during development
-const API_URL = 'http://localhost:4000';
+// Use environment variable for API URL
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 // Auth endpoints
 const AUTH_ENDPOINTS = {
