@@ -152,6 +152,41 @@ h2 {
   background: #ff8589;
 }
 
+.social-links-toggle {
+  margin-bottom: 15px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+  color: #888;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.toggle-btn:hover {
+  border-color: #ff9a9e;
+  color: #ff9a9e;
+}
+
+.social-links-section {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .signup-link {
   margin-top: 20px;
   text-align: center;

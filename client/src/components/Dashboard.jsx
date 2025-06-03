@@ -5,12 +5,12 @@ import { AuthContext } from '../utils/AuthContext';
 import { TODO_ENDPOINTS, AUTH_ENDPOINTS } from '../config/api';
 import InputTodos from './InputTodos';
 import ListTodos from './ListTodos';
+import SocialLinks from './SocialLinks';
 import './Dashboard.css';
 
 const Dashboard = () => {
   const [todos, setTodos] = useState([]);
-  const [user, setUser] = useState(null);
-  const { setAuth, logout } = useContext(AuthContext);
+  const { setAuth, logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const getTodos = async () => {
@@ -25,28 +25,18 @@ const Dashboard = () => {
     }
   };
 
-  const getUser = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(AUTH_ENDPOINTS.VERIFY, {
-        headers: { token }
-      });
-      setUser(response.data.user);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
   // Using logout from AuthContext instead of local implementation
 
   useEffect(() => {
     getTodos();
-    getUser();
   }, []);
 
   return (
     <div className="container">
       <div className="dashboard-header">
+        <div className="social-links-container">
+          <SocialLinks user={user} />
+        </div>
         <button className="logout-btn" onClick={logout}>Logout</button>
       </div>
       <InputTodos setTodosChange={getTodos} />

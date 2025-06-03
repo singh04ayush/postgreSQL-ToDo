@@ -45,5 +45,5 @@ app.use("/api/todos", require("./routes/todos"));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`API is up and running! Visit http://localhost:${PORT} to see the welcome message.`);
+    console.log(`API is up and running!`);
 })

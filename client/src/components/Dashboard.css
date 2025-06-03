@@ -1,9 +1,15 @@
 .dashboard-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem 0;
   margin-bottom: 2rem;
   border-bottom: 1px solid #e9ecef;
+}
+
+.social-links-container {
+  display: flex;
+  align-items: center;
 }
 
 /* Removed header title and welcome text */
@@ -26,9 +32,29 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .dashboard-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .social-links-container {
+    order: 1;
+    flex: 1;
+  }
+  
+  .logout-btn {
+    order: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+  }
+  
+  .social-links-container {
+    margin-bottom: 0.5rem;
   }
   
   .logout-btn {

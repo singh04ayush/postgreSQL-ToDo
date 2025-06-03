@@ -14,7 +14,6 @@ A full-stack todo application built with **PostgreSQL**, **Express**, **React**,
 2. Update the `.env` file in the `server` directory:
    ```env
    DATABASE_URL=your_production_database_url
-   NODE_ENV=production
    ```
 
 3. Deploy the server to **Vercel**:
@@ -27,7 +26,6 @@ A full-stack todo application built with **PostgreSQL**, **Express**, **React**,
 
 4. When prompted during deployment, set the following environment variables:
    - `DATABASE_URL`: Your PostgreSQL connection string
-   - `NODE_ENV`: `production`
 
 5. After deployment, Vercel will provide a URL for your backend API (e.g., `https://your-app-name.vercel.app`).
 

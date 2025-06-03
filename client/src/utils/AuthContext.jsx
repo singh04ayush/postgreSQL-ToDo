@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setUser(null);
     showSuccessToast("Logged out successfully!");
     // Note: Navigation will be handled by the protected route in App.jsx
     // which will redirect to login when isAuthenticated becomes false
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }) => {
       
       if (!token) {
         setIsAuthenticated(false);
+        setUser(null);
         setIsLoading(false);
         return;
       }
@@ -35,7 +38,13 @@ export const AuthProvider = ({ children }) => {
         headers: { token }
       });
 
-      response.data.user ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      if (response.data.user) {
+        setIsAuthenticated(true);
+        setUser(response.data.user);
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
       
       if (!response.data.user) {
         // If server responds but user is not authenticated
@@ -60,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setAuth, isLoading, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setAuth, isLoading, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -8,12 +8,17 @@ import '../styles/Login.css';
 const Register = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     email: "",
-    password: ""
+    password: "",
+    github_url: "",
+    linkedin_url: "",
+    instagram_url: "",
+    portfolio_url: ""
   });
+  const [showSocialLinks, setShowSocialLinks] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { email, password } = inputs;
+  const { email, password, github_url, linkedin_url, instagram_url, portfolio_url } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -25,7 +30,11 @@ const Register = ({ setAuth }) => {
       showInfoToast("Creating your account...");
       const response = await axios.post(AUTH_ENDPOINTS.REGISTER, {
         email,
-        password
+        password,
+        github_url: github_url || null,
+        linkedin_url: linkedin_url || null,
+        instagram_url: instagram_url || null,
+        portfolio_url: portfolio_url || null
       });
       
       // Store token in localStorage
@@ -82,6 +91,64 @@ const Register = ({ setAuth }) => {
               />
               <span className="input-icon">🔒</span>
             </div>
+            
+            <div className="social-links-toggle">
+              <button 
+                type="button" 
+                className="toggle-btn" 
+                onClick={() => setShowSocialLinks(!showSocialLinks)}
+              >
+                {showSocialLinks ? 'Hide Social Links' : 'Add Social Links (Optional)'}
+              </button>
+            </div>
+            
+            {showSocialLinks && (
+              <div className="social-links-section">
+                <div className="input-group">
+                  <input
+                    type="url"
+                    name="github_url"
+                    placeholder="GitHub URL"
+                    value={github_url}
+                    onChange={onChange}
+                  />
+                  <span className="input-icon">🐙</span>
+                </div>
+                
+                <div className="input-group">
+                  <input
+                    type="url"
+                    name="linkedin_url"
+                    placeholder="LinkedIn URL"
+                    value={linkedin_url}
+                    onChange={onChange}
+                  />
+                  <span className="input-icon">💼</span>
+                </div>
+                
+                <div className="input-group">
+                  <input
+                    type="url"
+                    name="instagram_url"
+                    placeholder="Instagram URL"
+                    value={instagram_url}
+                    onChange={onChange}
+                  />
+                  <span className="input-icon">📸</span>
+                </div>
+                
+                <div className="input-group">
+                  <input
+                    type="url"
+                    name="portfolio_url"
+                    placeholder="Portfolio URL"
+                    value={portfolio_url}
+                    onChange={onChange}
+                  />
+                  <span className="input-icon">🌐</span>
+                </div>
+              </div>
+            )}
             
             <button type="submit" className="login-btn">Register</button>
           </form>

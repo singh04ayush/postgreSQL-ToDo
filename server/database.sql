@@ -1,10 +1,14 @@
 create DATABASE perntodo;
 
--- Users table for authentication
+-- Users table for authentication with social links
 create table users(
     user_id serial primary key,
     email varchar(255) not null unique,
     password varchar(255) not null,
+    github_url varchar(255),
+    linkedin_url varchar(255),
+    instagram_url varchar(255),
+    portfolio_url varchar(255),
     created_at timestamp with time zone default current_timestamp
 );
 
